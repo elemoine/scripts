@@ -1,0 +1,22 @@
+cd ~/src/fuel-plugin-lma-collector
+
+tmux new-session -s lma -n console -d
+tmux send-keys -t lma:console 'workon main' C-m
+tmux send-keys -t lma:console 'tox -e lma_collector' C-m
+
+tmux new-window -n vim -t lma
+tmux send-keys -t lma:vim 'vim' C-m
+
+tmux new-window -n git -t lma
+tmux send-keys -t lma:git 'git status' C-m
+
+tmux new-window -n dos -t lma
+tmux send-keys -t lma:dos 'workon fuel-qa' C-m
+tmux send-keys -t lma:dos 'dos.py list' C-m
+
+tmux new-window -n fuel-master -t lma
+tmux new-window -n fuel-slave-1 -t lma
+tmux new-window -n fuel-slave-2 -t lma
+
+tmux select-window -t console
+tmux attach -t lma
