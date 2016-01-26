@@ -54,7 +54,9 @@ for plugin in $PLUGINS; do
           git fetch origin
           git merge --ff-only origin/master
       fi
+      echo "Build $plugin…"
       fpb --build .
+      echo "Done."
       cd ..
     fi
     if [[ -n $fuel_master ]]; then
