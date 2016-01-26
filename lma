@@ -10,9 +10,12 @@ tmux send-keys -t lma:vim 'vim' C-m
 tmux new-window -n git -t lma
 tmux send-keys -t lma:git 'git status' C-m
 
+tmux new-window -n fpb -t lma
+tmux send-keys -t lma:fpb 'workon fpb' C-m
+
 tmux new-window -n dos -t lma
 tmux send-keys -t lma:dos 'workon fuel-qa' C-m
-tmux send-keys -t lma:dos 'dos.py list' C-m
+tmux send-keys -t lma:dos 'dos.py list --ips' C-m
 
 tmux new-window -n fuel-master -t lma
 tmux new-window -n fuel-slave-1 -t lma
