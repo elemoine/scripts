@@ -1,0 +1,21 @@
+cd ~/src/kolla
+
+tmux new-session -s kolla -n vim -d
+tmux send-keys -t kolla:vim 'vim' C-m
+
+tmux new-window -n git -t kolla
+tmux send-keys -t kolla:git 'workon main' C-m
+tmux send-keys -t kolla:git 'git status' C-m
+
+tmux new-window -n vagrant1 -t kolla
+tmux send-keys -t kolla:vagrant1 'cd dev/vagrant' C-m
+tmux send-keys -t kolla:vagrant1 'vagrant status' C-m
+
+tmux new-window -n vagrant2 -t kolla
+tmux send-keys -t kolla:vagrant2 'cd dev/vagrant' C-m
+
+tmux new-window -n vagrant3 -t kolla
+tmux send-keys -t kolla:vagrant3 'cd dev/vagrant' C-m
+
+tmux select-window -t vim
+tmux attach -t kolla
