@@ -9,7 +9,7 @@ tmux send-keys -t kolla:git 'git status' C-m
 
 tmux new-window -n vagrant1 -t kolla
 tmux send-keys -t kolla:vagrant1 'cd dev/vagrant' C-m
-tmux send-keys -t kolla:vagrant1 'vagrant status' C-m
+tmux send-keys -t kolla:vagrant1 'vagrant up && vagrant ssh' C-m
 
 tmux new-window -n vagrant2 -t kolla
 tmux send-keys -t kolla:vagrant2 'cd dev/vagrant' C-m
