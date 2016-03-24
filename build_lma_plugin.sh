@@ -75,6 +75,7 @@ for plugin in $PLUGINS; do
     if [[ -n $build_packages ]]; then
       cd $plugin
       echo "Build $plugin…"
+      rm -f repositories/ubuntu/*
       fpb --build .
       echo "Done."
       cd ..
