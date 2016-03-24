@@ -7,21 +7,27 @@ if [[ -z $PLUGINS ]]; then
 fi
 
 function usage {
-    echo "Usage: $0 [-b] [-u] [-f <fuel_master>]"
+    echo "Usage: $0 [-b] [-c <branch>] [-t <tag>] [-f <fuel_master>]"
     echo ""
     echo "-b: build plugin packages"
-    echo "-u: update plugins master branches"
+    echo "-c: update plugins to <branch>"
+    echo "-t: update plugins to <tag>"
     echo "-f: install plugins to <fuel_master>"
     echo ""
 }
 
-while getopts ":buf:" opt; do
+while getopts ":bc:t:f:" opt; do
     case $opt in
     b)
         build_packages=1
         ;;
-    u)
-        update_master=1
+    c)
+        update_plugins=1
+        branch=$OPTARG
+        ;;
+    t)
+        update_plugins=1
+        tag=$OPTARG
         ;;
     f)
         fuel_master=$OPTARG
@@ -47,13 +53,27 @@ if [[ -n $fuel_master ]]; then
 fi
 
 for plugin in $PLUGINS; do
+    if [[ -n $update_plugins ]]; then
+        cd $plugin
+        git fetch origin
+        if [[ -n $branch ]]; then
+            echo "Update $plugin ($branch)…"
+            git rev-parse --verify $branch > /dev/null 2>&1 || git branch $branch origin/$branch
+            git checkout $branch
+            git merge --ff-only origin/$branch
+            echo "Done."
+            echo "Checking out $branch…"
+            git checkout $branch
+            echo "Done."
+        elif [[ -n $tag ]]; then
+            echo "Checking out $tag…"
+            git checkout $tag
+            echo "Done."
+        fi
+        cd ..
+    fi
     if [[ -n $build_packages ]]; then
       cd $plugin
-      if [[ -n $update_master ]]; then
-          git checkout master
-          git fetch origin
-          git merge --ff-only origin/master
-      fi
       echo "Build $plugin…"
       fpb --build .
       echo "Done."
