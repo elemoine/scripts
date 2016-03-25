@@ -1,0 +1,16 @@
+ssh-add
+
+tmux new-session -s clab -n cz7796 -d
+tmux send-keys -t clab:cz7796 'ssh clab1' C-m
+
+tmux new-window -n cz7799 -t clab
+tmux send-keys -t clab:cz7799 'ssh clab2' C-m
+
+tmux new-window -n cz7170 -t clab
+tmux send-keys -t clab:cz7170 'ssh clab3' C-m
+
+tmux new-window -n cz7171 -t clab
+tmux send-keys -t clab:cz7171 'ssh clab4' C-m
+
+tmux select-window -t cz7796
+tmux attach -t clab
