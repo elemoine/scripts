@@ -76,6 +76,8 @@ for plugin in $PLUGINS; do
       cd $plugin
       echo "Build $plugin…"
       rm -f repositories/ubuntu/*
+      rm -rf deployment_scripts/puppet/modules
+      git checkout deployment_scripts/puppet/modules
       fpb --build .
       echo "Done."
       cd ..
