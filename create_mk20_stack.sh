@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -x
+
+HEAT_STACK="stacklight_basic"
+
+if [[ ! -f template/mk20_${HEAT_STACK}.hot ]]; then
+    echo "Error: no template/mk20_${HEAT_STACK}.hot file"
+    exit 1
+fi
+
+git_url=""
+git_branch=""
+
+function usage {
+    echo "Usage: $0 [-g] [-b]"
+    echo ""
+    echo "-g: Salt model Git URL (e.g. git@github.com:elemoine/mk-lab-salt-model.git)"
+    echo "-b: Salt model Git branch"
+    echo ""
+}
+
+while getopts ":g:b:" opt; do
+    case $opt in
+    g)
+        git_url=$OPTARG
+        ;;
+    b)
+        git_branch=$OPTARG
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        usage $0
+        exit 1
+        ;;
+    esac
+done
+
+stack_id=$(openstack stack list --column ID --format value --tags ${HEAT_STACK})
+if [[ -n $stack_id ]]; then
+    openstack stack delete --yes --wait $stack_id
+fi
+
+extra_options=""
+if [[ -n $git_url ]]; then
+    extra_options="--parameter reclass_address=$git_url"
+fi
+if [[ -n $git_branch ]]; then
+    extra_options="$extra_options --parameter reclass_branch=$git_branch"
+fi
+
+openstack stack create \
+    --parameter "key_value=$(cat ~/.ssh/id_rsa.pub)" \
+    --environment env/mk20_${HEAT_STACK}/tcpisek.env \
+    --template template/mk20_${HEAT_STACK}.hot \
+    --tags ${HEAT_STACK} \
+    $extra_options \
+    "mk20_${HEAT_STACK}-$(date '+%Y-%m-%d')"
+
+echo "Stacks:"
+openstack stack list
+
+IP=""
+while [[ -z $IP ]]; do
+    sleep 2
+    IP=$(openstack floating ip list -c "Floating IP Address" -f value)
+done
+echo "Floating IP: $IP"
