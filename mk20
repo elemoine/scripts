@@ -1,0 +1,10 @@
+cd ~/src/mk20/mk-lab-heat-templates
+
+tmux new-session -s mk20 -n console -d
+tmux send-keys -t mk20:console 'workon mk20 && source openrc' C-m
+
+tmux new-window -n cfg -t mk20
+tmux send-keys -t mk20:cfg 'ssh mk20' C-m
+
+tmux select-window -t console
+tmux attach -t mk20
