@@ -66,3 +66,10 @@ while [[ -z $IP ]]; do
     IP=$(openstack floating ip list -c "Floating IP Address" -f value)
 done
 echo "Floating IP: $IP"
+
+stack_status=$(openstack stack list --column "Stack Status" --format value --tags ${HEAT_STACK})
+while [[ $stack_status == "CREATE_IN_PROGRESS" ]]; do
+    sleep 2
+    stack_status=$(openstack stack list --column "Stack Status" --format value --tags ${HEAT_STACK})
+done
+echo "Stack creation complete."
