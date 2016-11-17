@@ -4,7 +4,19 @@ tmux new-session -s mk20 -n console -d
 tmux send-keys -t mk20:console 'workon mk20 && source openrc' C-m
 
 tmux new-window -n cfg -t mk20
-tmux send-keys -t mk20:cfg 'ssh mk20' C-m
+tmux send-keys -t mk20:cfg 'ssh -t mk20' C-m
+tmux send-keys -t mk20:cfg 'sudo -E su -p -' C-m
+
+tmux new-window -n cfg-vim -t mk20
+tmux send-keys -t mk20:cfg-vim 'ssh -t mk20' C-m
+tmux send-keys -t mk20:cfg-vim 'sudo -E su -p -' C-m
+tmux send-keys -t mk20:cfg-vim 'cd /usr/share/salt-formulas/env/_formulas' C-m
+
+tmux new-window -n mon -t mk20
+tmux send-keys -t mk20:mon 'ssh -t mk20 ssh mon' C-m
+
+tmux new-window -n ctl01 -t mk20
+tmux send-keys -t mk20:ctl01 'ssh -t mk20 sudo -E ssh ctl01' C-m
 
 tmux select-window -t console
 tmux attach -t mk20
