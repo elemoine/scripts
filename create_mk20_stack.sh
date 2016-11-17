@@ -11,22 +11,27 @@ fi
 
 git_url=""
 git_branch=""
+git_formula_branch=""
 
 function usage {
     echo "Usage: $0 [-g] [-b]"
     echo ""
     echo "-g: Salt model Git URL (e.g. git@github.com:elemoine/mk-lab-salt-model.git)"
     echo "-b: Salt model Git branch"
+    echo "-f: Formula branch (e.g. stacklight)"
     echo ""
 }
 
-while getopts ":g:b:" opt; do
+while getopts ":g:b:f:" opt; do
     case $opt in
     g)
         git_url=$OPTARG
         ;;
     b)
         git_branch=$OPTARG
+        ;;
+    f)
+        git_formula_branch=$OPTARG
         ;;
     \?)
         echo "Invalid option: -$OPTARG" >&2
@@ -47,6 +52,9 @@ if [[ -n $git_url ]]; then
 fi
 if [[ -n $git_branch ]]; then
     extra_options="$extra_options --parameter reclass_branch=$git_branch"
+fi
+if [[ -n $git_formula_branch ]]; then
+    extra_options="$extra_options --parameter formula_branch=$git_formula_branch"
 fi
 
 openstack stack create \
