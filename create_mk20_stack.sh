@@ -14,7 +14,7 @@ git_branch=""
 git_formula_branch=""
 
 function usage {
-    echo "Usage: $0 [-g] [-b]"
+    echo "Usage: $0 [-g] [-b] [-f]"
     echo ""
     echo "-g: Salt model Git URL (e.g. git@github.com:elemoine/mk-lab-salt-model.git)"
     echo "-b: Salt model Git branch"
