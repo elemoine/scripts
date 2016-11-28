@@ -2,7 +2,7 @@
 
 set -x
 
-HEAT_STACK="stacklight_basic"
+HEAT_STACK="${HEAT_STACK:-stacklight_basic}"
 
 if [[ ! -f template/mk20_${HEAT_STACK}.hot ]]; then
     echo "Error: no template/mk20_${HEAT_STACK}.hot file"
