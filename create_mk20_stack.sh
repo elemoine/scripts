@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+[[ -n $DEBUG ]] && set -x
 
 HEAT_STACK="${HEAT_STACK:-stacklight_basic}"
 
