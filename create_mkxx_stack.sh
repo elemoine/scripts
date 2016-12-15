@@ -2,10 +2,10 @@
 
 [[ -n $DEBUG ]] && set -x
 
-HEAT_STACK="${HEAT_STACK:-stacklight_basic}"
+HEAT_STACK="${HEAT_STACK:-mk22_lab_advanced}"
 
-if [[ ! -f template/mk20_${HEAT_STACK}.hot ]]; then
-    echo "Error: no template/mk20_${HEAT_STACK}.hot file"
+if [[ ! -f template/${HEAT_STACK}.hot ]]; then
+    echo "Error: no template/${HEAT_STACK}.hot file"
     exit 1
 fi
 
@@ -59,11 +59,11 @@ fi
 
 openstack stack create \
     --parameter "key_value=$(cat ~/.ssh/id_rsa.pub)" \
-    --environment env/mk20_${HEAT_STACK}/tcpisek.env \
-    --template template/mk20_${HEAT_STACK}.hot \
+    --environment env/${HEAT_STACK}/tcpisek.env \
+    --template template/${HEAT_STACK}.hot \
     --tags ${HEAT_STACK} \
     $extra_options \
-    "mk20_${HEAT_STACK}-$(date '+%Y-%m-%d')"
+    "${HEAT_STACK}-$(date '+%Y-%m-%d')"
 
 echo "Stacks:"
 openstack stack list
