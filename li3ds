@@ -1,0 +1,25 @@
+#!/bin/bash
+
+tmux new-session -s li3ds -n serve -d
+tmux send-keys -t li3ds:serve 'cd ~/src/api-li3ds && workon li3ds && python api_li3ds/wsgi.py' C-m
+
+tmux new-window -n api-edit
+tmux send-keys -t li3ds:api-edit 'cd ~/src/api-li3ds && workon main' C-m
+
+tmux new-window -n psql
+tmux send-keys -t li3ds:psql 'psql -d li3ds -U li3ds' C-m
+
+tmux new-window -n pg-edit
+tmux send-keys -t li3ds:pg-edit 'cd ~/src/pg-li3ds && workon main' C-m
+
+tmux new-window -n cli
+tmux send-keys -t li3ds:cli 'cd ~/src/cli-li3ds && workon li3ds' C-m
+
+tmux new-window -n cli-edit
+tmux send-keys -t li3ds:cli-edit 'cd ~/src/cli-li3ds' C-m
+
+tmux new-window -n fdw-edit
+tmux send-keys -t li3ds:fdw-edit 'cd ~/src/fdw-li3ds' C-m
+
+tmux select-window -t serve
+tmux attach -t li3ds
