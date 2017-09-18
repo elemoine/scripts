@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tmux new-session -s paggf -n psql -d
+tmux send-keys -t paggf:psql 'psql -d paggf -U paggf' C-m
+
+tmux new-window -n edit
+tmux send-keys -t paggf:edit 'cd ~/src/paggf' C-m
+
+tmux select-window -t edit
+tmux attach -t paggf
