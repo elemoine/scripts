@@ -4,7 +4,7 @@ tmux new-session -s stc -n git -d
 tmux send-keys -t stc:git 'cd ~/src/1708_07_sncf_refonte_stc' C-m
 
 tmux new-window -n edit
-tmux send-keys -t stc:edit 'cd ~/src/1708_07_sncf_refonte_stc' C-m
+tmux send-keys -t stc:edit 'cd ~/src/1708_07_sncf_refonte_stc && workon main' C-m
 
 tmux new-window -n test
 tmux send-keys -t stc:test 'cd ~/src/1708_07_sncf_refonte_stc && workon stc' C-m
