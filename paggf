@@ -9,5 +9,11 @@ tmux send-keys -t paggf:git 'cd ~/src/paggf' C-m
 tmux new-window -n edit
 tmux send-keys -t paggf:edit 'cd ~/src/paggf && workon main' C-m
 
+tmux new-window -n ansible
+tmux send-keys -t paggf:ansible 'cd ~/src/paggf/vagrant && workon ansible' C-m
+
+tmux new-window -n vagrant
+tmux send-keys -t paggf:vagrant 'cd ~/src/paggf/vagrant' C-m
+
 tmux select-window -t edit
 tmux attach -t paggf
