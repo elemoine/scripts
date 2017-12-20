@@ -6,4 +6,5 @@ ifce=$2
 [[ -n ${ifce} ]] || ifce="wlp4s0"
 
 sudo ifdown ${ifce}
+sleep 1
 sudo ifup ${ifce}=${name}
