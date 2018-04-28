@@ -5,8 +5,16 @@
 set -e
 
 DEV=/dev/sdb
+MNTPT=/media/usb0
 
-sudo mount $DEV /media/usb
+set +e
+mount | grep "$DEV on $MNTPT" > /dev/null
+mounted=$?
+set -e
+
+if [[ $mounted -ne 0 ]]; then
+    sudo mount $DEV $MNTPT
+fi
 
 . $HOME/.local/bin/virtualenvwrapper.sh
 
@@ -15,7 +23,7 @@ workon duplicity
 set -e
 
 cd $HOME/src/backup
-./backup.sh -d /media/usb/backup -s 5BBF59DF126FADEF -e 57F334375840CA38 -v
+./backup.sh -d $MNTPT/backup -s 5BBF59DF126FADEF -e 57F334375840CA38 -v
 
 deactivate
 
