@@ -16,8 +16,10 @@ if [[ $mounted -ne 0 ]]; then
     sudo mount $DEV $MNTPT
 fi
 
+[[ -f $HOME/.restic_password_file ]] && RESTIC_PASSWORD_FILE="$HOME/.restic_password_file"
+
 cd $HOME/src/backup
-./backup.sh -d $MNTPT/backup -v
+RESTIC_PASSWORD_FILE=$RESTIC_PASSWORD_FILE ./backup.sh -d $MNTPT/backup -v
 
 sudo umount $DEV
 
