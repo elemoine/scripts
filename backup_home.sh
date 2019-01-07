@@ -5,7 +5,9 @@
 set -e
 
 DEV=/dev/sdb
-MNTPT=/media/usb0
+
+LABEL=backup
+MNTPT=/media/$LABEL
 
 set +e
 mount | grep "$DEV on $MNTPT" > /dev/null
@@ -13,7 +15,7 @@ mounted=$?
 set -e
 
 if [[ $mounted -ne 0 ]]; then
-    sudo mount $DEV $MNTPT
+    pmount $DEV $LABEL
 fi
 
 [[ -f $HOME/.restic_password_file ]] && RESTIC_PASSWORD_FILE="$HOME/.restic_password_file"
@@ -21,6 +23,6 @@ fi
 cd $HOME/src/backup
 RESTIC_PASSWORD_FILE=$RESTIC_PASSWORD_FILE ./backup.sh -d $MNTPT/backup -v
 
-sudo umount $DEV
+pumount $DEV
 
 exit 0
