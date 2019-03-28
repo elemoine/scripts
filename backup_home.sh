@@ -4,10 +4,10 @@
 
 set -e
 
-DEV=/dev/sdb
+DEVNAME=sdb
 
-LABEL=backup
-MNTPT=/media/$LABEL
+DEV=/dev/$DEVNAME
+MNTPT=/media/$DEVNAME
 
 set +e
 mount | grep "$DEV on $MNTPT" > /dev/null
@@ -15,7 +15,7 @@ mounted=$?
 set -e
 
 if [[ $mounted -ne 0 ]]; then
-    pmount $DEV $LABEL
+    pmount $DEV
 fi
 
 [[ -f $HOME/.restic_password_file ]] && RESTIC_PASSWORD_FILE="$HOME/.restic_password_file"
@@ -23,6 +23,8 @@ fi
 cd $HOME/src/backup
 RESTIC_PASSWORD_FILE=$RESTIC_PASSWORD_FILE ./backup.sh -d $MNTPT/backup -v
 
-pumount $DEV
+if [[ $mounted -ne 0 ]]; then
+    pumount $DEV
+fi
 
 exit 0
