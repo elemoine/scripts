@@ -3,9 +3,9 @@
 set -e
 set -x
 
-DEVNAME=sdb
-DEV=/dev/$DEVNAME
-MNTPT=/media/$DEVNAME
+UUID=4a77269b-b7c7-4da4-81b3-ca5d218fe59a
+DEV=/dev/disk/by-uuid/$UUID
+MNTPT=/media/disk_by-uuid_$UUID
 
 set +e
 mount | grep "$DEV on $MNTPT" > /dev/null
