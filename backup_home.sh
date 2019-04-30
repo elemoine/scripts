@@ -9,7 +9,7 @@ DEV=/dev/disk/by-uuid/$UUID
 MNTPT=/media/disk_by-uuid_$UUID
 
 set +e
-mount | grep "$DEV on $MNTPT" > /dev/null
+mount | grep "on $MNTPT" > /dev/null
 mounted=$?
 set -e
 
