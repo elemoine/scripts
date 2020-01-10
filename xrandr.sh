@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_OUTPUT="HDMI-2"
+DEFAULT_OUTPUT="HDMI-1"
 DEFAULT_ACTION="--right-of eDP-1 --primary --auto"
 
 if [[ -n $1 ]]; then
