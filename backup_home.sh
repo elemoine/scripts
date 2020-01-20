@@ -20,7 +20,7 @@ fi
 [[ -f $HOME/.restic_password_file ]] && RESTIC_PASSWORD_FILE="$HOME/.restic_password_file"
 
 cd $HOME/src/backup
-RESTIC_PASSWORD_FILE=$RESTIC_PASSWORD_FILE ./backup.sh -d $MNTPT/backup -v
+RESTIC_PASSWORD_FILE=$RESTIC_PASSWORD_FILE ./backup.sh -d $MNTPT/backup_home_peopledoc -v
 
 if [[ $mounted -ne 0 ]]; then
     pumount $DEV
