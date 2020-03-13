@@ -1,1 +1,1 @@
-sudo vpnc --no-detach ulti-ipsec
+sudo vpnc --no-detach --password $(totp ulti) ulti-ipsec
