@@ -16,7 +16,7 @@ if [[ $mounted -ne 0 ]]; then
     pmount $DEV
 fi
 
-rsync -e ssh -avz --rsync-path="sudo -u www-data rsync" nextcloudpi:/mnt/raid0/nextcloud/data/ $MNTPT/nextcloud/data/
+rsync -e ssh -av -zz --rsync-path="sudo -u www-data rsync" nextcloudpi:/mnt/raid0/nextcloud/data/ $MNTPT/nextcloud/data/
 
 if [[ $mounted -ne 0 ]]; then
     pumount $DEV
