@@ -1,1 +1,1 @@
-sudo vpnc --no-detach --password $(totp ulti) ulti-ipsec
+~/.virtualenvs/main/bin/totp ulti | sudo vpnc --no-detach ulti-ipsec
