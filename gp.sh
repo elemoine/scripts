@@ -11,6 +11,8 @@ action=$1
 if [[ -z $action ]]; then
     globalprotect disconnect
     globalprotect connect -p gp.ultimatesoftware.com -u EricLe
+elif [[ $action == "d" ]]; then
+    globalprotect disconnect
 else
     globalprotect $*
 fi
