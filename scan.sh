@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eux
+
 FILEPATH=$1
 shift
 
@@ -8,6 +10,8 @@ EXTENSION=${FILEPATH##*.}
 
 TEMP_FILEPATH=${FILEPATH_NO_EXTENSION}-tmp.${EXTENSION}
 
-hp-scan --dest=file --mode=gray --size=a4 --resolution=100 --file=${TEMP_FILEPATH} $*
+cmd="hp-scan --dest=file --mode=gray --size=a4 --resolution=100 --file=${TEMP_FILEPATH} $*"
+echo $cmd
+$cmd
 ps2pdf ${TEMP_FILEPATH} ${FILEPATH}
 rm ${TEMP_FILEPATH}
