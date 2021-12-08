@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iface="wlp2s0"
+iface="wlp0s20f3"
 wpa_network=$1
 
 if [[ -n $wpa_network ]]; then
