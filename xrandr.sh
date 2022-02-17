@@ -8,8 +8,9 @@
 # xrandr.sh DP-1-8 --off
 #
 
+LAPTOP_OUTPUT="eDP-1"
 DEFAULT_OUTPUT="HDMI-1"
-DEFAULT_ACTION="--right-of eDP-1 --primary --auto"
+DEFAULT_ACTION="--right-of ${LAPTOP_OUTPUT} --primary --auto"
 
 if [[ -n $1 ]]; then
     if [[ $1 == "--off" ]]; then
@@ -28,3 +29,4 @@ else
 fi
 
 /usr/bin/xrandr --output $output $action
+[[ action == "-off" ]] && /usr/bin/xrandr --output ${LAPTOP_OUTPUT} --primary
