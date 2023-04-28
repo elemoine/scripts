@@ -4,7 +4,7 @@
 
 set -e
 
-UUID=4a77269b-b7c7-4da4-81b3-ca5d218fe59a
+UUID=037c0226-5719-4d60-9f13-c601e7162003
 DEV=/dev/disk/by-uuid/$UUID
 MNTPT=/media/disk_by-uuid_$UUID
 
