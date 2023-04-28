@@ -1,9 +1,11 @@
 #!/bin/bash
 
-iface="wlp0s20f3"
-wpa_network=${1:-0}
+device="wlan0"
+ssid=$1
 
-sudo wpa_cli -i ${iface} select_network ${wpa_network}
-sudo wpa_cli -i ${iface} list_networks
+iwctl station $device scan
+iwctl station $device get-networks
 
-exit 0
+if [[ -n ${ssid} ]]; then
+    iwctl station $device connect "${ssid}"
+fi
