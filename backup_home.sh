@@ -16,7 +16,7 @@ set -e
 function mount_disk()
 {
     echo "Mounting $DEV..."
-    pmount $DEV
+    pmount --type ext4 --noatime $DEV
 }
 
 function umount_disk()
